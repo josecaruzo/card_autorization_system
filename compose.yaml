@@ -1,0 +1,49 @@
+services:
+  dbpostgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: card_authorization
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    networks:
+      - card_authorization_network
+  msuser:
+    build:
+      context: ./msUser
+    depends_on:
+      - dbpostgres
+    ports:
+      - "8081:8081"
+    networks:
+      - card_authorization_network
+  mscustomer:
+    build:
+      context: ./msCustomer
+    depends_on:
+      - dbpostgres
+    ports:
+      - "8082:8082"
+    networks:
+      - card_authorization_network
+  mscard:
+    build:
+      context: ./msCard
+    depends_on:
+      - dbpostgres
+    ports:
+      - "8083:8083"
+    networks:
+      - card_authorization_network
+  msauthorization:
+    build:
+      context: ./msAuthorization
+    depends_on:
+      - dbpostgres
+    ports:
+      - "8084:8084"
+    networks:
+      - card_authorization_network
+networks:
+  card_authorization_network:

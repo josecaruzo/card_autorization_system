@@ -1,0 +1,10 @@
+DO
+'
+DECLARE
+BEGIN
+	IF NOT EXISTS (SELECT * FROM roles) THEN
+		INSERT INTO roles (id, ROLE_NAME) values (1, ''ROLE_ADMIN'');
+		INSERT INTO roles (id, ROLE_NAME) values (2, ''ROLE_COMMON'');
+	END IF;
+END
+' LANGUAGE PLPGSQL;
