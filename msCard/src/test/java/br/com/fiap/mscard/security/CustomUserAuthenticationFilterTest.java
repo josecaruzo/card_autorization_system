@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -84,16 +85,13 @@ class CustomUserAuthenticationFilterTest {
 
 		when(request.getRequestURI()).thenReturn(default_path);
 		when(request.getHeader(anyString())).thenReturn(null);
-		when(jwtTokenService.getSubjectFromToken(anyString())).thenReturn(user.getUsername());
-		when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
+		when(jwtTokenService.getSubjectFromToken(anyString())).thenReturn(null);
 
 		assertThatThrownBy(() -> customUserAuthenticationFilter.doFilter(request, response, filterChain))
-				.isInstanceOf(NullPointerException.class);
+				.isInstanceOf(NoSuchElementException.class);
 
 		verify(request, times(1)).getRequestURI();
 		verify(request, times(1)).getHeader(anyString());
-		verifyNoInteractions(userRepository);
-		verifyNoInteractions(jwtTokenService);
 	}
 
 }

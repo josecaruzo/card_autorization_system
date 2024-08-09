@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/cartao")
+@RequestMapping("/api/cartao")
 public class CardController {
 	private final CardServiceImpl cardService;
 

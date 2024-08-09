@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/pagamentos")
+@RequestMapping("/api/pagamentos")
 public class AuthorizationController {
 	private final AuthorizationServiceImpl authorizationService;
 

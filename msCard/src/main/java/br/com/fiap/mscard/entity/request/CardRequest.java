@@ -1,6 +1,7 @@
 package br.com.fiap.mscard.entity.request;
 
 import br.com.fiap.mscard.entity.validation.cardnumber.ValidNumber;
+import br.com.fiap.mscard.entity.validation.cpf.ValidCPF;
 import br.com.fiap.mscard.entity.validation.cvv.ValidCvv;
 import br.com.fiap.mscard.entity.validation.expirydate.ValidDate;
 import br.com.fiap.mscard.entity.validation.expirydate.ValidDateFormat;
@@ -16,10 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidCPF
 @ValidNumber
-@ValidCvv
 @ValidDateFormat
 @ValidDate
+@ValidCvv
 public class CardRequest {
 	@NotBlank
 	private String cpf;

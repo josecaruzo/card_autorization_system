@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -91,6 +92,10 @@ public class ControllerExceptionHandler {
 
 		for(FieldError f: e.getBindingResult().getFieldErrors()){
 			newValidError.addMessage(f.getObjectName(), f.getField(),f.getDefaultMessage());
+		}
+
+		for(ObjectError g: e.getBindingResult().getGlobalErrors()){
+			newValidError.addMessage(g.getObjectName(), "Global", g.getDefaultMessage());
 		}
 
 		return ResponseEntity.status(status).body(newValidError);

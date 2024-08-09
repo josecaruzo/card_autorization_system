@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorizationHistoryResponse {
+	private String numero_cartao;
 	private float valor;
 	private String descricao;
 	private String metodo_pagamento;
 	private String status;
-	private String numero_cartao;
 }

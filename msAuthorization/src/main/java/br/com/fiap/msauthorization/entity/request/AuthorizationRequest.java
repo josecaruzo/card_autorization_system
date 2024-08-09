@@ -1,5 +1,9 @@
 package br.com.fiap.msauthorization.entity.request;
 
+import br.com.fiap.msauthorization.entity.validation.cardnumber.ValidNumber;
+import br.com.fiap.msauthorization.entity.validation.cpf.ValidCPF;
+import br.com.fiap.msauthorization.entity.validation.cvv.ValidCvv;
+import br.com.fiap.msauthorization.entity.validation.expirydate.ValidDateFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -12,6 +16,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidCPF
+@ValidNumber
+@ValidDateFormat
+@ValidCvv
 public class AuthorizationRequest {
 
 	@NotBlank

@@ -31,11 +31,11 @@ public class AuthorizationMapper {
 
 	public AuthorizationHistoryResponse entityToHistoryResponse(Authorization authorization){
 		return AuthorizationHistoryResponse.builder()
+				.numero_cartao(maskedCard(authorization.getCardNumber()))
 				.valor(authorization.getAmount())
 				.descricao(authorization.getDescription())
 				.metodo_pagamento(authorization.getTrxnMethod().getValue())
 				.status(authorization.getStatusDescription().getValue())
-				.numero_cartao(maskedCard(authorization.getCardNumber()))
 				.build();
 	}
 

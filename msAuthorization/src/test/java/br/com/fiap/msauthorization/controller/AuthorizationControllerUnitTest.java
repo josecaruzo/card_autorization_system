@@ -260,12 +260,44 @@ public class AuthorizationControllerUnitTest {
 		}
 
 		@Test
+		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_cpf_invalid() throws Exception {
+			//Arrange
+			Card card = AuthorizationUtils.createFakeCard();
+			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
+			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
+			authorizationRequest.setCpf("000000");
+
+			//Act && Assert
+			mockMvc.perform(post("/api/pagamentos")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(AuthorizationUtils.asJsonString(authorizationRequest))
+			).andExpect(status().isBadRequest());
+			verify(authorizationService, never()).add(any(AuthorizationRequest.class));
+		}
+
+		@Test
 		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_numero_blank() throws Exception {
 			//Arrange
 			Card card = AuthorizationUtils.createFakeCard();
 			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
 			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
 			authorizationRequest.setNumero(null);
+
+			//Act && Assert
+			mockMvc.perform(post("/api/pagamentos")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(AuthorizationUtils.asJsonString(authorizationRequest))
+			).andExpect(status().isBadRequest());
+			verify(authorizationService, never()).add(any(AuthorizationRequest.class));
+		}
+
+		@Test
+		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_numero_invalid() throws Exception {
+			//Arrange
+			Card card = AuthorizationUtils.createFakeCard();
+			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
+			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
+			authorizationRequest.setNumero("0000000");
 
 			//Act && Assert
 			mockMvc.perform(post("/api/pagamentos")
@@ -292,12 +324,44 @@ public class AuthorizationControllerUnitTest {
 		}
 
 		@Test
+		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_data_validade_invalid() throws Exception {
+			//Arrange
+			Card card = AuthorizationUtils.createFakeCard();
+			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
+			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
+			authorizationRequest.setData_validade("15/23");
+
+			//Act && Assert
+			mockMvc.perform(post("/api/pagamentos")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(AuthorizationUtils.asJsonString(authorizationRequest))
+			).andExpect(status().isBadRequest());
+			verify(authorizationService, never()).add(any(AuthorizationRequest.class));
+		}
+
+		@Test
 		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_cvv_blank() throws Exception {
 			//Arrange
 			Card card = AuthorizationUtils.createFakeCard();
 			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
 			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
 			authorizationRequest.setCvv(null);
+
+			//Act && Assert
+			mockMvc.perform(post("/api/pagamentos")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(AuthorizationUtils.asJsonString(authorizationRequest))
+			).andExpect(status().isBadRequest());
+			verify(authorizationService, never()).add(any(AuthorizationRequest.class));
+		}
+
+		@Test
+		void shouldThrowMethodArgumentNotValidException_WhenAddAuthorization_cvv_invalid() throws Exception {
+			//Arrange
+			Card card = AuthorizationUtils.createFakeCard();
+			Authorization authorization = AuthorizationUtils.createFakeAuthorization(1L, card);
+			AuthorizationRequest authorizationRequest = AuthorizationUtils.entityToRequest(authorization);
+			authorizationRequest.setCvv("00");
 
 			//Act && Assert
 			mockMvc.perform(post("/api/pagamentos")
